@@ -1,0 +1,85 @@
+.productsBed {
+  background-image: url('../../assets/images/backgroundTile.png');
+  background-size: 200px;
+  background-repeat: repeat;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding-top: 20px;
+}
+
+.productsHeadingBed {
+  background: rgb(238, 197, 34);
+  display: flex;
+  justify-content: center;
+  padding: 20px 0 20px;
+}
+
+.productBed {
+  align-content: flex-end;
+  display: flex;
+  padding: 10px 15px 0 15px;
+  margin-bottom: 25px;
+}
+.productContainer {
+  background: rgb(64, 64, 156);
+  height: 100%;
+  border: 10px solid #000055ff;
+  border-radius: 15px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.productImageBed {
+  display: flex;
+  justify-content: center;
+}
+
+.ointmentImage {
+  width: 130px;
+  text-align: center;
+}
+.comboImage {
+  width: 150px;
+}
+.oilImage {
+  width: 60px;
+}
+
+.productLabelBed {
+  color: #d4aa00ff;
+  padding: 10px 0 10px;
+}
+
+.productPrice {
+  color: #ffff;
+  text-align: center;
+  font-size: 1.2rem;
+  padding: 3px 0 3px;
+}
+
+.productButtonBed {
+  margin-top: 5px;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+.productButton {
+  background: rgb(235, 189, 4);
+  cursor: pointer;
+  width: 150px;
+  text-align: center;
+}
+.productButton:hover {
+  background: rgb(253, 219, 83);
+}
+.buttonText {
+  padding: 5px;
+  color: #000055ff;
+}
+
+.transisionTest {
+  background: red;
+}

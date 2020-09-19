@@ -1,0 +1,6 @@
+#root {
+  height: 100%;
+  background-image: url('backgroundTile.png');
+  background-size: 200px;
+  background-repeat: repeat;
+}

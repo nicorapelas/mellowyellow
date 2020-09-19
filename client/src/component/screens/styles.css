@@ -1,0 +1,9 @@
+.bg {
+  position: absolute;
+  background-position: center;
+  will-change: opacity;
+}
+
+.testLineOne {
+  font-size: 2rem;
+}

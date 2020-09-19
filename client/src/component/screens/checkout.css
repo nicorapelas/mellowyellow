@@ -1,0 +1,53 @@
+.checkoutCardLoaderBed {
+  margin-top: 100px;
+}
+
+.checkoutCardBed {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding-top: 20px;
+  background-image: url('../../assets/images/backgroundTile.png');
+  background-size: 200px;
+  background-repeat: repeat;
+}
+
+.checkoutFormBed {
+  display: flex;
+  flex-direction: column;
+}
+
+.checkoutInstruction {
+  padding: 15px;
+}
+
+.checkoutFormInput {
+  text-align: center;
+  padding: 10px;
+  margin-bottom: 7px;
+  font-size: 1.1rem;
+  border: 3px solid #000055ff;
+  border-radius: 35px;
+}
+
+.errorMessage {
+  color: rgb(167, 29, 29);
+  font-size: 1.2rem;
+  font-weight: 900;
+  margin-top: -7px;
+}
+
+.checkoutFormInput:focus {
+  outline: none;
+}
+
+.checkoutFormButton {
+  background-color: #000055ff;
+  color: #d4aa00ff;
+  cursor: pointer;
+  margin: 15px 0 15px;
+  padding: 10px;
+  width: 100px;
+  align-self: center;
+}

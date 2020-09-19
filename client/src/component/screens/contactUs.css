@@ -1,0 +1,92 @@
+.contactUsHeadingBed {
+  display: flex;
+  justify-content: center;
+  padding: 20px 0 20px;
+}
+
+.contactUsFormBed {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}
+.contactUsFormContainer {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.contactUsFormInput {
+  text-align: center;
+  padding: 10px;
+  margin-bottom: 7px;
+  font-size: 1.1rem;
+  border: 3px solid #000055ff;
+  border-radius: 35px;
+}
+
+.contactUsFormTextarea {
+  text-align: center;
+  height: 210px;
+  padding: 10px;
+  margin-bottom: 7px;
+  font-size: 1.1rem;
+  border: 3px solid #000055ff;
+  border-radius: 35px;
+}
+
+.errorMessage {
+  color: rgb(167, 29, 29);
+  font-size: 1.2rem;
+  font-weight: 900;
+  margin-top: -7px;
+}
+
+.contactUsFormTextarea,
+.contactUsFormInput:focus {
+  outline: none;
+}
+
+.contactUsSubmitButtonBed {
+  display: flex;
+  justify-content: center;
+}
+
+.contactUsSubmitButton {
+  background-color: #000055ff;
+  cursor: pointer;
+  margin-bottom: 15px;
+}
+
+.contactUsSubmitButtonText {
+  color: rgb(251, 255, 23);
+  font-size: 1.1rem;
+  padding: 10px;
+}
+
+.contactUsSuccessBed {
+  display: flex;
+  justify-content: center;
+}
+.contactUsSuccessContainer {
+  padding-top: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.contactUsSuccessImage {
+  height: 220px;
+}
+
+.contactUsSuccessButtonBed {
+  padding-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+.contactUsSuccessButton {
+  background-color: #000055ff;
+}
+.contactUsSuccessButtonText {
+  color: rgb(251, 255, 23);
+  font-size: 1.1rem;
+  padding: 10px;
+}

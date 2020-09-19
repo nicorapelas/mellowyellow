@@ -1,0 +1,76 @@
+.landingBed {
+  display: flex;
+  flex-grow: 1;
+  height: 100%;
+}
+
+.landingLeftColumn {
+  background: #000055ff;
+  flex-grow: 1;
+  display: flex;
+}
+.landingLogoBed {
+  align-self: center;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 25px;
+}
+.landingLogoContainer {
+  display: flex;
+  flex-direction: column;
+}
+.landingLogo {
+  width: 350px;
+}
+.landingLogoSubText {
+  color: #d4aa00ff;
+  width: 350px;
+  padding: 10px 0 10px;
+  text-align: center;
+}
+
+.landingShopButtonbed {
+  display: flex;
+  justify-content: center;
+  padding-top: 15px;
+}
+
+.landingShopButtonContainer {
+  background: #d4aa00ff;
+  border-radius: 5px;
+  width: 110px;
+  display: flex;
+  justify-content: space-around;
+  padding: 5px;
+}
+.landingShopButtonText {
+  color: #000055ff;
+  padding-top: 5px;
+}
+.landingShopButtonIcon {
+  width: 20px;
+}
+
+.landingRightColumn {
+  background: #d4aa00ff;
+  flex-grow: 1;
+  display: flex;
+}
+
+.landingProductImageBed {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-bottom: 80px;
+  padding-left: 20px;
+}
+.landingProductImage {
+  height: 290px;
+}
+
+@media screen and (max-width: 550px) {
+  .landingRightColumn {
+    display: none;
+  }
+}

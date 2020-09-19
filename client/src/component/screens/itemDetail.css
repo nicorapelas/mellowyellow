@@ -1,0 +1,105 @@
+.itemDetailBed {
+  padding-top: 50px;
+  display: flex;
+  justify-content: center;
+}
+.comboDetailBed {
+  padding-top: 50px;
+  display: flex;
+  justify-content: center;
+  background-image: url('../../assets/images/backgroundTile.png');
+  background-size: 200px;
+  background-repeat: repeat;
+}
+
+.itemDetailContainer {
+  background: rgb(64, 64, 156);
+  border: 10px solid #000055ff;
+  border-radius: 15px;
+  padding: 50px;
+  flex-basis: 60%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+.itemDetailLeftColumn {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 60%;
+}
+.itemDetailImageBed {
+  display: flex;
+  justify-content: center;
+}
+.comboDetailImageBed {
+  padding: 30px 20px 10px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.oilDetailImage {
+  height: 300px;
+}
+.oinmentDetailImage {
+  width: 200px;
+}
+.comboDetailImage {
+  width: 250px;
+}
+
+.itemDetailButtonBed {
+  display: flex;
+  justify-content: center;
+}
+.itemDetailButtonContainer {
+  padding-top: 15px;
+}
+
+.itemDetailDescriptionBed {
+  flex-basis: 60%;
+  color: #ffff;
+}
+
+.itemDetailInfoConteiner {
+  padding-bottom: 7px;
+}
+
+.itemDetailHeading {
+  font-size: 1.2rem;
+  font-weight: 900;
+  padding-bottom: 7px;
+}
+.itemDetailInfoHeading {
+  font-weight: 900;
+}
+.itemDetailInfoPrice {
+  font-size: 1.3rem;
+}
+
+.ointmentDetailsBed {
+  background-color: rgb(71, 71, 212);
+  padding: 5px 0 5px 10px;
+  border-radius: 15px;
+  margin-bottom: 10px;
+}
+.comboOintmentHeading {
+  font-size: 1.1rem;
+  font-weight: 900;
+}
+
+@media screen and (max-width: 960px) {
+  .itemDetailBed {
+    background-image: url('../../assets/images/backgroundTile.png');
+    background-size: 200px;
+    background-repeat: repeat;
+  }
+  .itemDetailContainer {
+    flex-direction: column;
+  }
+  .itemDetailDescriptionBed {
+    padding-top: 15px;
+  }
+  .comboDetailImageBed {
+    padding: 5px 0 10px 0;
+  }
+}

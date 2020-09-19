@@ -1,0 +1,14 @@
+.appBed {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  /* background-image: url('../assets/images/backgroundTile.png');
+  background-size: 200px;
+  background-repeat: repeat; */
+}
+
+.appContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
