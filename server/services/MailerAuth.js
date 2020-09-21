@@ -7,8 +7,8 @@ class MailerSimple extends helper.Mail {
     super()
 
     this.sgApi = sendgrid(keys.sendgrid.apiKey)
-    this.from_email = new helper.Email('auth@mellowyellow.co.za')
-    this.subject = `Mellowyellow - Authentication`
+    this.from_email = new helper.Email('no-reply@cvcloud.com')
+    this.subject = `CV Cloud - User authentication department`
     this.body = new helper.Content('text/html', content)
     this.recipients = this.formatAddresses(recipients)
 

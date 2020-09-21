@@ -31,7 +31,6 @@ router.post('/all', async (req, res) => {
 
 // Signature generator for PayFast
 const generateSignature = (data, passPhrase = '') => {
-  console.log(passPhrase)
   // Create parameter string
   let pfOutput = ''
   for (let key in data) {
@@ -52,7 +51,8 @@ const generateSignature = (data, passPhrase = '') => {
       '+'
     )}`
   }
-  console.log(data)
+
+  console.log(`at getString: ${getString}`)
   return crypto.createHash('md5').update(getString).digest('hex')
 }
 
@@ -76,7 +76,9 @@ router.post('/pay', async (req, res) => {
   })
 
   // Create an MD5 signature of it.
-  const payFastSubmitData = `merchant_id=${payFastRequest.merchant_id}&merchant_key=${payFastRequest.merchant_key}&return_url=${payFastRequest.return_url}&cancel_url=${payFastRequest.cancel_url}&notify_url=${payFastRequest.notify_url}&name_first=${payFastRequest.name_first}&name_last=${payFastRequest.name_last}&email_address=${payFastRequest.email_address}&amount=${payFastRequest.amount}&item_name=${payFastRequest.item_name}`
+  const payFastSubmitData = `merchant_id=${payFastRequest.merchant_id}&merchant_key=${payFastRequest.merchant_key}&return_url=${payFastRequest.return_url}&cancel_url=${payFastRequest.cancel_url}&notify_url=${payFastRequest.notify_url}&name_first=${payFastRequest.name_first}&name_last=${payFastRequest.name_last}&email_address=${payFastRequest.email_address}&amount=${payFastRequest.amount}&item_name=${payFastRequest.item_name}&${payFastRequest.passphrase}`
+
+  console.log(payFastSubmitData)
 
   const MD5Signature = generateSignature(
     payFastSubmitData.toString(),
