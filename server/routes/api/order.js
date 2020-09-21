@@ -56,7 +56,7 @@ const generateSignature = (data, passPhrase = '') => {
   return crypto.createHash('md5').update(getString).digest('hex')
 }
 
-// @route  POST /api/order/pre-pay
+// @route  POST /api/order/pa
 // @desc   Arrange payment data for an order
 // @access Public
 router.post('/pay', async (req, res) => {

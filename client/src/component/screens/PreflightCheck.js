@@ -169,156 +169,70 @@ const PreflightCheck = ({ history }) => {
   }
 
   const payFastForm = () => {
-    return (
-      <form action="https://sandbox.payfast.co.za​/eng/process" method="post">
-        <input type="hidden" name="merchant_id" value="10000100" />
-        <input type="hidden" name="merchant_key" value="46f0cd694581a" />
-        <input
-          type="hidden"
-          name="return_url"
-          value="https://www.example.com/success"
-        />
-        <input
-          type="hidden"
-          name="cancel_url"
-          value="https://www.example.com/cancel"
-        />
-        <input
-          type="hidden"
-          name="notify_url"
-          value="https://www.example.com/notify"
-        />
-
-        <input type="hidden" name="amount" value="100.00" />
-        <input type="hidden" name="item_name" value="Test Product" />
-        <input
-          type="hidden"
-          name="signature"
-          value="f103e22c0418655fb03991538c51bfd5"
-        />
-        <input type="submit" />
-      </form>
-    )
-  }
-
-  const crypto = require('crypto')
-
-  const generateSignature = (data, passPhrase = null) => {
-    // Create parameter string
-    let pfOutput = ''
-    for (let key in data) {
-      if (data.hasOwnProperty(key)) {
-        if (data[key] !== '') {
-          pfOutput += `${key}=${encodeURIComponent(data[key].trim()).replace(
-            /%20/g,
-            ' + '
-          )}&`
-        }
-      }
-    }
-
-    // Remove last ampersand
-    let getString = pfOutput.slice(0, -1)
-    if (passPhrase !== null) {
-      getString += `&passphrase=${encodeURIComponent(passPhrase.trim()).replace(
-        /%20/g,
-        '+'
-      )}`
-    }
-
-    return crypto.createHash('md5').update(getString).digest('hex')
-  }
-
-  const myData = []
-  // Merchant details
-  myData['merchant_id'] = '10000100'
-  myData['merchant_key'] = '46f0cd694581a'
-  myData['return_url'] = 'https://e2662d82348f.ngrok.io/order/paid'
-  myData['cancel_url'] = 'https://e2662d82348f.ngrok.io/order/not-paid'
-  myData['notify_url'] = 'https://e2662d82348f.ngrok.io/order/payment-note'
-  // Transaction details
-  myData['amount'] = '100.00'
-  myData['item_name'] = 'Test Product'
-  // Generate signature
-  myData['signature'] = generateSignature(myData)
-
-  let htmlForm = `<form action="https://sandbox.payfast.co.za​/eng/process" method="post">`
-  for (let key in myData) {
-    if (myData.hasOwnProperty(key)) {
-      let value = myData[key]
-      if (value !== '') {
-        htmlForm += `<input name="${key}" type="hidden" value="${value.trim()}" />`
-      }
+    if (!payFastSubmitData || payFastSubmitData === null) {
+      return null
+    } else {
+      const {
+        merchant_id,
+        merchant_key,
+        return_url,
+        cancel_url,
+        notify_url,
+        name_first,
+        name_last,
+        email_address,
+        amount,
+        item_name,
+        passphrase,
+        signature,
+      } = payFastSubmitData
+      console.log(
+        return_url,
+        cancel_url,
+        notify_url,
+        name_first,
+        name_last,
+        email_address,
+        amount,
+        item_name,
+        passphrase,
+        signature
+      )
+      return (
+        <form action="https://sandbox.payfast.co.za​/eng/process" method="POST">
+          <input type="hidden" name="merchant_id" value={merchant_id} />
+          <input type="hidden" name="merchant_key" value={merchant_key} />
+          <input type="hidden" name="return_url" value={return_url} />
+          <input type="hidden" name="cancel_url" value={cancel_url} />
+          <input type="hidden" name="notify_url" value={notify_url} />
+          <input type="hidden" name="name_first" value={name_first} />
+          <input type="hidden" name="name_last" value={name_last} />
+          <input type="hidden" name="email_address" value={email_address} />
+          <input type="hidden" name="amount" value={amount} />
+          <input type="hidden" name="item_name" value={item_name} />
+          <input type="hidden" name="passphrase" value={passphrase} />
+          <input type="hidden" name="signature" value={signature} />
+          <div className="col-lg-6">
+            <input
+              style={{
+                marginRight: 20,
+                background: 'red',
+                width: 100,
+                height: 100,
+              }}
+              name="disable"
+              type="submit"
+              width="100%"
+              height="100%"
+              alt="Submit"
+              align="bottom"
+              value="Purchase"
+            />
+          </div>
+        </form>
+      )
     }
   }
-
-  htmlForm += '<input type="submit" value="Pay Now" /></form>'
-
-  // const payFastForm = () => {
-  //   if (!payFastSubmitData || payFastSubmitData === null) {
-  //     return null
-  //   } else {
-  //     const {
-  //       merchant_id,
-  //       merchant_key,
-  //       return_url,
-  //       cancel_url,
-  //       notify_url,
-  //       name_first,
-  //       name_last,
-  //       email_address,
-  //       amount,
-  //       item_name,
-  //       passphrase,
-  //       signature,
-  //     } = payFastSubmitData
-  //     console.log(
-  //       return_url,
-  //       cancel_url,
-  //       notify_url,
-  //       name_first,
-  //       name_last,
-  //       email_address,
-  //       amount,
-  //       item_name,
-  //       passphrase,
-  //       signature
-  //     )
-  //     return (
-  //       <form action="https://sandbox.payfast.co.za​/eng/process" method="POST">
-  //         <input type="hidden" name="merchant_id" value={merchant_id} />
-  //         <input type="hidden" name="merchant_key" value={merchant_key} />
-  //         <input type="hidden" name="return_url" value={return_url} />
-  //         <input type="hidden" name="cancel_url" value={cancel_url} />
-  //         <input type="hidden" name="notify_url" value={notify_url} />
-  //         <input type="hidden" name="name_first" value={name_first} />
-  //         <input type="hidden" name="name_last" value={name_last} />
-  //         <input type="hidden" name="email_address" value={email_address} />
-  //         <input type="hidden" name="amount" value={amount} />
-  //         <input type="hidden" name="item_name" value={item_name} />
-  //         <input type="hidden" name="passphrase" value={passphrase} />
-  //         <input type="hidden" name="signature" value={signature} />
-  //         <div className="col-lg-6">
-  //           <input
-  //             style={{
-  //               marginRight: 20,
-  //               background: 'red',
-  //               width: 100,
-  //               height: 100,
-  //             }}
-  //             name="disable"
-  //             type="submit"
-  //             width="100%"
-  //             height="100%"
-  //             alt="Submit"
-  //             align="bottom"
-  //             value="Purchase"
-  //           />
-  //         </div>
-  //       </form>
-  //     )
-  //   }
-  // }
 
   return (
     <>
