@@ -90,9 +90,9 @@ router.post('/pay', async (req, res) => {
   const myData = {
     merchant_id: keys.payFast.MerchantID,
     merchant_key: keys.payFast.MerchantKey,
-    return_url: 'https://0c7286ba5195.ngrok.io/order/paid',
-    cancel_url: 'https://0c7286ba5195.ngrok.io/order/not-paid',
-    notify_url: 'https://0c7286ba5195.ngrok.io/order/payment-note',
+    return_url: 'https://cd4f75e42728.ngrok.io/order/paid',
+    cancel_url: 'https://cd4f75e42728.ngrok.io/order/not-paid',
+    notify_url: 'https://cd4f75e42728.ngrok.io/order/payment-note',
     name_first,
     name_last,
     email_address,
@@ -115,9 +115,9 @@ router.post('/pay', async (req, res) => {
 //   const payFastRequest = {
 //     merchant_id: 10019952,
 //     merchant_key: 'di2hra235gprh',
-//     return_url: 'https://0c7286ba5195.ngrok.io/order/paid',
-//     cancel_url: 'https://0c7286ba5195.ngrok.io/order/not-paid',
-//     notify_url: 'https://0c7286ba5195.ngrok.io/order/payment-note',
+//     return_url: 'https://cd4f75e42728.ngrok.io/order/paid',
+//     cancel_url: 'https://cd4f75e42728.ngrok.io/order/not-paid',
+//     notify_url: 'https://cd4f75e42728.ngrok.io/order/payment-note',
 //     name_first,
 //     name_last,
 //     email_address,
@@ -129,9 +129,9 @@ router.post('/pay', async (req, res) => {
 //   return res.json({
 //     merchant_id: 10019952,
 //     merchant_key: 'di2hra235gprh',
-//     return_url: 'https://0c7286ba5195.ngrok.io/order/paid',
-//     cancel_url: 'https://0c7286ba5195.ngrok.io/order/not-paid',
-//     notify_url: 'https://0c7286ba5195.ngrok.io/order/payment-note',
+//     return_url: 'https://cd4f75e42728.ngrok.io/order/paid',
+//     cancel_url: 'https://cd4f75e42728.ngrok.io/order/not-paid',
+//     notify_url: 'https://cd4f75e42728.ngrok.io/order/payment-note',
 //     name_first,
 //     name_last,
 //     email_address,
@@ -144,6 +144,7 @@ router.post('/pay', async (req, res) => {
 router.get('/paid', async (req, res) => {
   console.log(`@ paid`)
   console.log(req)
+  res.json({ hi: 'there' })
 })
 router.get('/not-paid', async (req, res) => {
   console.log(`@ not-paid`)
