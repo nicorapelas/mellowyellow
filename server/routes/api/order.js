@@ -3,8 +3,8 @@ const express = require('express')
 const mongoose = require('mongoose')
 const crypto = require('crypto')
 const Order = mongoose.model('Order')
-const PayFastRequest = mongoose.model('PayFastRequest')
 const User = mongoose.model('User')
+const keys = require('../../config/keys').keys
 const MailerOrder = require('../../services/MailerOrder')
 const orderEmail = require('../../templates/order')
 const validateEmailInput = require('../../validation/email')
@@ -36,7 +36,7 @@ const generateSignature = (data, passPhrase = '') => {
   for (let key in data) {
     if (data.hasOwnProperty(key)) {
       if (data[key] !== '') {
-        pfOutput += `${key}=${encodeURIComponent(data[key].trim()).replace(
+        pfOutput += `${key}=${encodeURIComponent(data[key]).replace(
           /%20/g,
           ' + '
         )}&`
@@ -51,9 +51,35 @@ const generateSignature = (data, passPhrase = '') => {
       '+'
     )}`
   }
-
-  console.log(`at getString: ${getString}`)
   return crypto.createHash('md5').update(getString).digest('hex')
+}
+
+const dataToString = (dataArray) => {
+  // Convert your data array to a string
+  let pfParamString = ''
+  for (let key in dataArray) {
+    if (dataArray.hasOwnProperty(key)) {
+      pfParamString += `${key}=${encodeURIComponent(dataArray[key]).replace(
+        /%20/g,
+        '+'
+      )}&`
+    }
+  }
+  // Remove last ampersand
+  return pfParamString.slice(0, -1)
+}
+
+const generatePaymentIdentifier = async (pfParamString) => {
+  const result = await axios
+    .post(`https://www.payfast.co.za/onsite/process`, pfParamString)
+    .then((res) => {
+      return res.data.uuid || null
+    })
+    .catch((error) => {
+      console.error(error)
+    })
+  console.log('res.data', result)
+  return result
 }
 
 // @route  POST /api/order/pa
@@ -61,56 +87,71 @@ const generateSignature = (data, passPhrase = '') => {
 // @access Public
 router.post('/pay', async (req, res) => {
   const { name_first, name_last, email_address, amount, item_name } = req.body
-  const payFastRequest = new PayFastRequest({
-    merchant_id: 10000100,
-    merchant_key: '46f0cd694581a',
-    return_url: 'https://e2662d82348f.ngrok.io/order/paid',
-    cancel_url: 'https://e2662d82348f.ngrok.io/order/not-paid',
-    notify_url: 'https://e2662d82348f.ngrok.io/order/payment-note',
+  const myData = {
+    merchant_id: keys.payFast.MerchantID,
+    merchant_key: keys.payFast.MerchantKey,
+    return_url: 'https://0c7286ba5195.ngrok.io/order/paid',
+    cancel_url: 'https://0c7286ba5195.ngrok.io/order/not-paid',
+    notify_url: 'https://0c7286ba5195.ngrok.io/order/payment-note',
     name_first,
     name_last,
     email_address,
     amount,
     item_name,
-    passphrase: 'HappyChappy-007',
-  })
+  }
+  const passPhrase = 'HappyChappy-007'
+  myData['signature'] = generateSignature(myData, passPhrase)
+  const pfParamString = dataToString(myData)
+  const identifier = await generatePaymentIdentifier(pfParamString)
 
-  // Create an MD5 signature of it.
-  const payFastSubmitData = `merchant_id=${payFastRequest.merchant_id}&merchant_key=${payFastRequest.merchant_key}&return_url=${payFastRequest.return_url}&cancel_url=${payFastRequest.cancel_url}&notify_url=${payFastRequest.notify_url}&name_first=${payFastRequest.name_first}&name_last=${payFastRequest.name_last}&email_address=${payFastRequest.email_address}&amount=${payFastRequest.amount}&item_name=${payFastRequest.item_name}&${payFastRequest.passphrase}`
-
-  console.log(payFastSubmitData)
-
-  const MD5Signature = generateSignature(
-    payFastSubmitData.toString(),
-    payFastRequest.passphrase
-  )
-
-  console.log(MD5Signature)
-
-  return res.json({
-    merchant_id: 10000100,
-    merchant_key: '46f0cd694581a',
-    return_url: 'https://e2662d82348f.ngrok.io/order/paid',
-    cancel_url: 'https://e2662d82348f.ngrok.io/order/not-paid',
-    notify_url: 'https://e2662d82348f.ngrok.io/order/payment-note',
-    name_first,
-    name_last,
-    email_address,
-    amount,
-    item_name,
-    passphrase: 'HappyChappy-007',
-    signature: MD5Signature,
-  })
+  return res.send(identifier)
 })
+
+// // @route  POST /api/order/pa
+// // @desc   Arrange payment data for an order
+// // @access Public
+// router.post('/pay', async (req, res) => {
+//   const { name_first, name_last, email_address, amount, item_name } = req.body
+//   const payFastRequest = {
+//     merchant_id: 10019952,
+//     merchant_key: 'di2hra235gprh',
+//     return_url: 'https://0c7286ba5195.ngrok.io/order/paid',
+//     cancel_url: 'https://0c7286ba5195.ngrok.io/order/not-paid',
+//     notify_url: 'https://0c7286ba5195.ngrok.io/order/payment-note',
+//     name_first,
+//     name_last,
+//     email_address,
+//     amount,
+//     item_name,
+//   }
+//   const MD5Signature = generateSignature(payFastRequest, 'HappyChappy-007')
+
+//   return res.json({
+//     merchant_id: 10019952,
+//     merchant_key: 'di2hra235gprh',
+//     return_url: 'https://0c7286ba5195.ngrok.io/order/paid',
+//     cancel_url: 'https://0c7286ba5195.ngrok.io/order/not-paid',
+//     notify_url: 'https://0c7286ba5195.ngrok.io/order/payment-note',
+//     name_first,
+//     name_last,
+//     email_address,
+//     amount,
+//     item_name,
+//     signature: MD5Signature,
+//   })
+// })
 
 router.get('/paid', async (req, res) => {
-  console.log(`paid`)
+  console.log(`@ paid`)
+  console.log(req)
 })
 router.get('/not-paid', async (req, res) => {
-  console.log(`not-paid`)
+  console.log(`@ not-paid`)
+  console.log(req)
 })
 router.get('/payment-note', async (req, res) => {
-  console.log(`payment-note`)
+  console.log(`@ payment-note`)
+  console.log(req)
 })
 
 // @route  POST /api/order/

@@ -1,7 +1,6 @@
 require('./models/User')
 require('./models/Order')
 require('./models/Enquirey')
-require('./models/PayFastRequest')
 const express = require('express')
 const path = require('path')
 const exphbs = require('express-handlebars')

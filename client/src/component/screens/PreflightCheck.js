@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Spring } from 'react-spring/renderprops'
+import Script from 'react-load-script'
 
 import BurgerMenu from '../bits/BurgerMenu'
 import { Context as UniversalContext } from '../../context/UniversalContext'
@@ -172,70 +173,32 @@ const PreflightCheck = ({ history }) => {
     if (!payFastSubmitData || payFastSubmitData === null) {
       return null
     } else {
-      const {
-        merchant_id,
-        merchant_key,
-        return_url,
-        cancel_url,
-        notify_url,
-        name_first,
-        name_last,
-        email_address,
-        amount,
-        item_name,
-        passphrase,
-        signature,
-      } = payFastSubmitData
-      console.log(
-        return_url,
-        cancel_url,
-        notify_url,
-        name_first,
-        name_last,
-        email_address,
-        amount,
-        item_name,
-        passphrase,
-        signature
-      )
-      return (
-        <form action="https://sandbox.payfast.co.za​/eng/process" method="POST">
-          <input type="hidden" name="merchant_id" value={merchant_id} />
-          <input type="hidden" name="merchant_key" value={merchant_key} />
-          <input type="hidden" name="return_url" value={return_url} />
-          <input type="hidden" name="cancel_url" value={cancel_url} />
-          <input type="hidden" name="notify_url" value={notify_url} />
-          <input type="hidden" name="name_first" value={name_first} />
-          <input type="hidden" name="name_last" value={name_last} />
-          <input type="hidden" name="email_address" value={email_address} />
-          <input type="hidden" name="amount" value={amount} />
-          <input type="hidden" name="item_name" value={item_name} />
-          <input type="hidden" name="passphrase" value={passphrase} />
-          <input type="hidden" name="signature" value={signature} />
-          <div className="col-lg-6">
-            <input
-              style={{
-                marginRight: 20,
-                background: 'red',
-                width: 100,
-                height: 100,
-              }}
-              name="disable"
-              type="submit"
-              width="100%"
-              height="100%"
-              alt="Submit"
-              align="bottom"
-              value="Purchase"
-            />
-          </div>
-        </form>
-      )
+      console.log(payFastSubmitData)
+
+      return window.payfast_do_onsite_payment({ uuid: payFastSubmitData })
     }
+  }
+
+  const handleScriptCreate = () => {
+    console.log(`payfast script create`)
+  }
+
+  const handleScriptError = () => {
+    console.log(`payfast script error`)
+  }
+
+  const handleScriptLoad = () => {
+    console.log(`payfast script fully loaded`)
   }
 
   return (
     <>
+      <Script
+        url="https://www.payfast.co.za/onsite/engine.js"
+        onCreate={handleScriptCreate}
+        onError={handleScriptError}
+        onLoad={handleScriptLoad}
+      />
       <BurgerMenu />
       {payFastForm()}
       <div className="headingImageBed">
