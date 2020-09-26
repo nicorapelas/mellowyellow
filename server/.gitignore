@@ -2,8 +2,6 @@
 keys_dev.js
 # dependencies
 node_modules
-.gitignore
-.prettier
 
 # testing
 coverage
